@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Billing System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍽️ Restaurant Billing System</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="admin.html">Manage Menu</a>
+                <a href="sales.html">Sales Report</a>
+            </nav>
+        </header>
+
+        <div class="main-content">
+            <div class="menu-section">
+                <h2>Menu</h2>
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Menu items will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div class="cart-section">
+                <h2>Cart & Bill</h2>
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart">Your cart is empty</div>
+                </div>
+
+                <div class="bill-summary" id="billSummary" style="display: none;">
+                    <div class="bill-row">
+                        <span>Total:</span>
+                        <span id="total">₹0</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="payNowBtn" disabled>Pay Now</button>
+                    <button class="btn btn-success" id="printBillBtn" disabled>Print Bill</button>
+                    <button class="btn btn-danger" id="clearCartBtn" disabled>Clear Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Scan to Pay</h2>
+            <div id="qrcode"></div>
+            <p style="margin-top: 20px; color: #666;">Total Amount: <strong id="qrAmount">₹0</strong></p>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+

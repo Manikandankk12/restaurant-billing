@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Menu - Restaurant Billing System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Password Modal -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-modal-content">
+            <h2>🔒 Admin Access</h2>
+            <p style="margin-bottom: 20px; color: #666;">Please enter the admin password to continue</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" autofocus>
+            <div class="password-error" id="passwordError">Incorrect password. Please try again.</div>
+            <button class="btn btn-primary" onclick="checkPassword()" style="width: 100%;">Login</button>
+        </div>
+    </div>
+
+    <div class="container" id="adminContainer" style="display: none;">
+        <header>
+            <h1>🍽️ Restaurant Billing System</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="admin.html">Manage Menu</a>
+                <a href="sales.html">Sales Report</a>
+            </nav>
+        </header>
+
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2>Manage Menu</h2>
+            </div>
+
+            <div class="form-section">
+                <h3 id="formTitle">Add New Menu Item</h3>
+                <form id="menuForm">
+                    <input type="hidden" id="itemId">
+                    
+                    <div class="form-group">
+                        <label for="itemName">Item Name:</label>
+                        <input type="text" id="itemName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemPrice">Price (₹):</label>
+                        <input type="number" id="itemPrice" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemImage">Image URL:</label>
+                        <input type="url" id="itemImage" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="itemCategory">Category:</label>
+                        <input type="text" id="itemCategory" value="Breakfast" required>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Add Item</button>
+                        <button type="button" class="btn btn-danger" id="cancelBtn" style="display: none;" onclick="cancelEdit()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="menu-list" id="menuList">
+                <!-- Menu items will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // Handle Enter key in password input
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('passwordInput');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        });
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (checkAdminPassword(password)) {
+                document.getElementById('passwordModal').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                // Initialize admin page after password check
+                if (typeof initializeAdminPage === 'function') {
+                    initializeAdminPage();
+                }
+            } else {
+                errorDiv.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+    </script>
+</body>
+</html>
+
